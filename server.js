@@ -38,10 +38,10 @@ function toDay() {
     const time = forecastData.daily.data[0].time;
     const forecast = forecastData.daily.data[0].summary;
 
-    return {
+    return [{
         forecast: forecast,
         time: time
-    }
+    }]
 }
 
 const geoData = require('./data/geo.json');
