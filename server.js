@@ -18,9 +18,36 @@ app.get('/location', (request, response) => {
     }
 });
 
+app.get('/weather', (request, response) => {
+    try {
+        const weather = request.query.weather;
+        const result = getWeather(weather);
+        response.status(200).json(result);
+    }
+    catch(err) {
+        response.status(500).send('Sorry, something went wrong :(');
+    }
+});
+
+const forecastData = require('./data/darksky.json');
+function getWeather() {
+    return toDay(forecastData);
+}
+
+function toDay() {
+    const time = forecastData.daily.data[0].time;
+    const forecast = forecastData.daily.data[0].summary;
+
+    return {
+        forecast: forecast,
+        time: time
+    }
+}
+
 const geoData = require('./data/geo.json');
 
 function getLatLng() {
+
     return toLocation(geoData);
 }
 
